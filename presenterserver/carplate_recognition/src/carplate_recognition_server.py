@@ -187,7 +187,7 @@ class CarRecognitionServer(PresenterSocketServer):
 
         rectangle_list = []
         if request.rectangle_list:
-            print("parse rectangle")
+            #print("parse rectangle")
             for one_rectangle in request.rectangle_list:
                 rectangle = []
                 rectangle.append(one_rectangle.left_top.x)
@@ -195,7 +195,7 @@ class CarRecognitionServer(PresenterSocketServer):
                 rectangle.append(one_rectangle.right_bottom.x)
                 rectangle.append(one_rectangle.right_bottom.y)
                 rectangle.append(one_rectangle.label_text)
-                print("rectangel (%s %f %f %f %f)"%(one_rectangle.label_text, one_rectangle.left_top.x,
+                #print("rectangel (%s %f %f %f %f)"%(one_rectangle.label_text, one_rectangle.left_top.x,
                       one_rectangle.left_top.y, one_rectangle.right_bottom.x, one_rectangle.right_bottom.y))
                 # add the detection result to list
                 rectangle_list.append(rectangle)
