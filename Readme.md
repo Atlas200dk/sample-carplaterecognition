@@ -155,7 +155,7 @@
 
             此时在DetectionOutput层的Suggestion中选择SSDDetectionOutput，并点击Retry。
 
-            模型转换成功后，后缀为.om的离线模型存放地址为_$HOME/modelzoo/xxx/device_。
+            模型转换成功后，后缀为.om的离线模型存放地址为：_$HOME/modelzoo/xxx/device_。
 
             >![](public_sys-resources/icon-note.gif) **说明：**   
             >-   Mind Studio模型转换中每一步的具体意义和参数说明可以参考[Mind Studio用户手册](https://ascend.huawei.com/doc/mindstudio/)中的“模型转换“章节。  
