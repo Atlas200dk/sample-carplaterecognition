@@ -51,7 +51,7 @@ if(type STREQUAL host)
 
     if(target STREQUAL "RC")
         target_link_libraries(main matrixdaemon mmpa pthread dl rt)
-        target_link_libraries(Host matrixdaemon hiai_common media_mini presenteragent Dvpp_api Dvpp_jpeg_decoder Dvpp_jpeg_encoder avcodec avformat avdevice avutil swresample avfilter swscale Dvpp_vpc ascend_ezdvpp)
+        target_link_libraries(Host matrixdaemon hiai_common media_mini presenteragent Dvpp_api Dvpp_jpeg_decoder Dvpp_jpeg_encoder Dvpp_vpc ascend_ezdvpp)
     else()
         target_link_libraries(main matrix mmpa pthread dl rt)
         target_link_libraries(Host matrix hiai_common)
