@@ -196,7 +196,7 @@ class CarRecognitionServer(PresenterSocketServer):
                 rectangle.append(one_rectangle.right_bottom.y)
                 rectangle.append(one_rectangle.label_text)
                 #print("rectangel (%s %f %f %f %f)"%(one_rectangle.label_text, one_rectangle.left_top.x,
-                      one_rectangle.left_top.y, one_rectangle.right_bottom.x, one_rectangle.right_bottom.y))
+                #      one_rectangle.left_top.y, one_rectangle.right_bottom.x, one_rectangle.right_bottom.y))
                 # add the detection result to list
                 rectangle_list.append(rectangle)
 
