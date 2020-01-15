@@ -159,7 +159,7 @@
 
             >![](public_sys-resources/icon-note.gif) **说明：**   
             >-   Mind Studio模型转换中每一步的具体意义和参数说明可以参考[Mind Studio用户手册](https://ascend.huawei.com/doc/mindstudio/)中的“模型转换“章节。  
-            >-   XXX表示当前转换的模型名称，如vgg\_ssd.om存放地址为$HOME/modelzoo/vgg\_ssd/device。  
+            >-   XXX表示当前转换的模型名称，如vgg\_ssd.om存放地址为：$HOME/modelzoo/vgg\_ssd/device。  
 
 
     -   命令行模式下模型转换。
