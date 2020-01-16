@@ -119,7 +119,7 @@
             -   Model Name填写为[表1](#table117203103464)对应的**模型名称**。
             -   car\_plate\_detection模型转换时非默认配置如下：
 
-                AIPP配置中的**Input Image Size**分别修改为512、640，此处需要128、16对齐。**Model Image Format**需要修改为BGR888\_U8。
+                AIPP配置中的**Input Image Size**分别修改为512、640，此处需要128\*16对齐。**Model Image Format**需要修改为BGR888\_U8。
 
                 **图 2**  car\_plate\_detection模型转换时AIPP配置<a name="fig1175817321825"></a>  
                 
@@ -128,7 +128,7 @@
 
             -   car\_plate\_recognition模型转换时非默认配置如下：
 
-                AIPP配置中的**Input Image Size\[W\]\[H\]**分别修改为384、80，此处需要128\*16对齐。**Model Image Format**需要修改为BGR888\_U8。
+                AIPP配置中的**Input Image Size**分别修改为384、80，此处需要128\*16对齐。**Model Image Format**需要修改为BGR888\_U8。
 
                 **图 3**  car\_plate\_recognition模型转换时AIPP配置<a name="fig10486111811264"></a>  
                 
