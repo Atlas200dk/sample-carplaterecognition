@@ -21,12 +21,11 @@
 
     执行如下命令在最后一行添加DDK\_HOME及LD\_LIBRARY\_PATH的环境变量。
 
-    **export DDK\_HOME=/home/XXX/tools/che/ddk/ddk**
+    **export DDK\_HOME=$HOME/tools/che/ddk/ddk**
 
     **export LD\_LIBRARY\_PATH=$DDK\_HOME/uihost/lib**
 
     >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   XXX为Mind Studio安装用户，/home/XXX/tools为DDK默认安装路径。  
     >-   如果此环境变量已经添加，则此步骤可跳过。  
 
     输入:wq!保存退出。
@@ -37,7 +36,7 @@
 
 2.  获取源码包。
 
-    将[https://gitee.com/Atlas200DK/sample-carplaterecognition](https://gitee.com/Atlas200DK/sample-carplaterecognition)仓中的代码以Mind Studio安装用户下载至Mind Studio所在Ubuntu服务器的任意目录，例如代码存放路径为：_/home/ascend/sample-carplaterecognition_。
+    将[https://gitee.com/Atlas200DK/sample-carplaterecognition](https://gitee.com/Atlas200DK/sample-carplaterecognition)仓中的代码以Mind Studio安装用户下载至Mind Studio所在Ubuntu服务器的任意目录，例如代码存放路径为：$HOME/sample-carplaterecognition。
 
 3.  <a name="li8221184418455"></a>获取此应用中所需要的原始网络模型。
 
@@ -97,7 +96,7 @@
 
             此时在DetectionOutput层的Suggestion中选择SSDDetectionOutput，并点击Retry。
 
-            模型转换成功后，后缀为.om的离线模型存放地址为$HOME/tools/che/model-zoo/my-model/xxx。
+            模型转换成功后，后缀为.om的离线模型存放地址为：$HOME/tools/che/model-zoo/my-model/xxx。
 
     -   命令行模式下进行模型转换。
         1.  以Mind Studio安装用户进入存放原始模型的文件夹。
@@ -120,7 +119,7 @@
 
 ## 部署<a name="section1759513564117"></a>
 
-1.  以Mind Studio安装用户进入车牌识别应用代码所在根目录，如：**/home/ascend/sample-carplaterecognition**。
+1.  以Mind Studio安装用户进入车牌识别应用代码所在根目录，如：**$HOME/sample-carplaterecognition**。
 2.  <a name="li08019112542"></a>执行部署脚本，进行工程环境准备，包括ascenddk公共库的编译与部署、Presenter Server服务器的配置等操作，其中Presenter Server用于接收Application发送过来的数据并通过浏览器进行结果展示。
 
     **bash deploy.sh** _host\_ip_ _model\_mode_
@@ -177,7 +176,7 @@
 
 1.  运行车牌识别应用程序。
 
-    在“/home/ascend/sample-carplaterecognition“目录下执行如下命令运行车牌识别应用程序。
+    在“$HOME/sample-carplaterecognition“目录下执行如下命令运行车牌识别应用程序。
 
     **bash run\_carplaterecognitionapp.sh** _host\_ip_ _presenter\_view\_app\_name  camera\_channel\_name_   &
 
