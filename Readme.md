@@ -1,6 +1,6 @@
 # 车牌识别<a name="ZH-CN_TOPIC_0218873008"></a>
 
-开发者可以将本application部署至Atlas 200DK上实现对摄像头数据的实时采集、并对视频中的车辆车牌信息进行预测的功能。
+开发者可以将本application部署至Atlas 200DK上实现对摄像头数据的实时采集、并对视频中的车辆车牌信息进行预测的功能。受模型影响，精准度较低，如果需要高精准度，可以自己训练模型替换。
 
 当前分支中的应用适配**1.31.0.0及以上**版本的[DDK&RunTime](https://ascend.huawei.com/resources)。
 
