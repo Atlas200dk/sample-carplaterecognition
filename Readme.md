@@ -95,7 +95,7 @@
 
         **export tools\_version=_1.31.X.X_**
 
-        **export DDK\_HOME=$HOME/.mindstudio/huawei/ddk/$DDK_HOME/ddk**
+        **export DDK\_HOME=\\$HOME/.mindstudio/huawei/ddk/\\$DDK_HOME/ddk**
 
         **export NPU\_DEVICE\_LIB=$DDK\_HOME/../RC/host-aarch64\_Ubuntu16.04.3/lib**
 
