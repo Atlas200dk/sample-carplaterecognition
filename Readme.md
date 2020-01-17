@@ -40,7 +40,7 @@
 
 3.  <a name="li8221184418455"></a>获取此应用中所需要的原始网络模型。
 
-    参考[表1](#table117203103464)获取此应用中所用到的原始网络模型及其对应的权重文件，并将其存放到Mind Studio所在Ubuntu服务器的任意目录，例如$HOME/ascend/models/carplaterecognition。
+    参考[表1](#table117203103464)获取此应用中所用到的原始网络模型及其对应的权重文件，并将其存放到Mind Studio所在Ubuntu服务器的任意目录，例如：$HOME/ascend/models/carplaterecognition。
 
     **表 1**  车牌识别应用中使用的模型
 
