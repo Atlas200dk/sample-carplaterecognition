@@ -170,11 +170,11 @@
         2.  调用omg工具执行以下命令进行模型转换。
 
             ```
-            ${DDK_HOME}/uihost/bin/omg --output="./XXX" --model="./XXX.prototxt" --framework=0 --ddk_version=${tools_version} --weight="./XXX.caffemodel" --input_shape=`head -1 $HOME/AscendProjects/sample-carplaterecognition/script/shape_XXX` --insert_op_conf=$HOME/AscendProjects/sample-carplaterecognition/script/aipp_XXX.cfg --op_name_map=$HOME/AscendProjects/sample-carplaterecognition/script/reassign_operators
+            ${DDK_HOME}/uihost/bin/omg --output="./XXX" --model="./XXX.prototxt" --framework=0 --ddk_version=${tools_version} --weight="./XXX.caffemodel" --input_shape=`head -1 $HOME/AscendProjects/sample-carplaterecognition/MyModel/shape_XXX` --insert_op_conf=$HOME/AscendProjects/sample-carplaterecognition/MyModel/aipp_XXX.cfg --op_name_map=$HOME/AscendProjects/sample-carplaterecognition/MyModel/reassign_operators
             ```
 
             >![](public_sys-resources/icon-note.gif) **说明：**   
-            >-   input\_shape、insert\_op\_conf、op\_name\_map所需要的文件都在源码所在路径下的“sample-carplaterecognition/script”目录下，请根据您实际的源码所在路径配置这些文件路径。  
+            >-   input\_shape、insert\_op\_conf、op\_name\_map所需要的文件都在源码所在路径下的“sample-carplaterecognition/MyModel”目录下，请根据您实际的源码所在路径配置这些文件路径。  
             >-   **XXX**为[表1](#table117203103464)中的模型名称，转换时请替换填入需要转换模型的模型名称。其中car\_plate\_recognition模型转换时不需要op\_name\_map参数，如果没有删除不需要的参数，转换模型时会有报错。  
             >-   每个参数的具体意义可参考[Atlas 200 DK用户手册](https://ascend.huawei.com/doc/atlas200dk/)中的“模型转换“章节。  
 
