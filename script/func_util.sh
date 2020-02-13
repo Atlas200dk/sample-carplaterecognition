@@ -4,10 +4,11 @@ script_path="$( cd "$(dirname ${BASH_SOURCE})" ; pwd -P )"
 remote_port="22118"
 DDK_BIN="$DDK_HOME/uihost/bin"
 tools_path="${script_path}/.."
+PROTOC="$DDK_HOME/bin/x86_64-linux-gcc5.4/protoc"
 
 function check_python3_lib()
 {
-    echo "Check python3 libs ......"
+    echo "Install python3 libs: pip3 install -r ${tools_path}/presenterserver/requirements..."
 
     tornado_obj=`cat ${tools_path}/presenterserver/requirements | grep tornado | awk -F'[ =]+' '{print $2}'`
     if [ $? -ne 0 ];then
@@ -360,3 +361,97 @@ function check_ip_addr()
    return 0
 }
 
+# ************************is_proto_version_match********************************
+# Description:  check proto code file version is match with protoc version
+# $1: proto code head file
+# ******************************************************************************
+function is_proto_version_match()
+{
+    file=$1
+    if [ ! -f $file ];then
+        echo "Error: check proto version failed for $file is not exist"
+        return 0
+    fi
+
+	min_version=$(grep "PROTOBUF_VERSION" $file | awk -F ' ' '{print $4}' | sed 's/00/./g')
+    if [ -z "$min_version" ]; then
+        echo "Get min version from $file failed"
+        return 0
+    fi
+    echo "min verison $min_version"
+
+	max_version=$(grep "PROTOBUF_MIN_PROTOC_VERSION" $file | awk -F ' ' '{print $2}' | sed 's/00/./g')
+    if [ -z "$max_version" ]; then
+        echo "Get max version from $file failed"
+        return 0
+    fi
+    echo "max verison $max_version"
+
+	protoc_version=$($PROTOC --version | awk -F ' ' '{print $2}')
+    if [ -z "$protoc_version" ]; then
+        echo "Get protoc version from $file failed"
+        return 0
+    fi
+    echo "protoc verison $protoc_version"
+
+	if [[ $protoc_version == $min_version ]] || [[ $protoc_version == $max_version ]] ||\
+       ([[ $protoc_version > $min_version ]] && [[ $protoc_version < $max_version ]]); then
+		return 1
+	fi
+    
+	return 0
+}	
+
+# ************************generate_proto_code***********************************
+# Description:  generate proto code by protoc
+# $1: proto file
+# ******************************************************************************
+function generate_proto_code()
+{
+    proto_file=$1
+
+    cur_dir=$(pwd)
+    proto_dir=$(dirname $proto_file)
+    filename=$(basename $proto_file)
+
+    cd $proto_dir
+	$PROTOC $filename --cpp_out=./
+    if [ $? -ne 0 ]
+    then
+        echo "ERROR: execute $PROTOC $proto_file --cpp_out=$proto_out_dir failed"
+        return 1
+    fi
+    cd $cur_dir
+
+    return 0
+}
+
+# ************************check_proto_version***********************************
+# Description:  check proto code version, regenerate if version not match
+# $1: proto head file
+# $2: proto file
+# ******************************************************************************
+function check_proto_version()
+{
+    pb_h_file=$1
+    proto_file=$2
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$DDK_HOME/lib/x86_64-linux-gcc5.4/"
+
+    echo "check_proto_version $pb_h_file"
+    is_proto_version_match $pb_h_file
+	if [ $? -eq 1 ];then
+        echo "$pb_h_file match the protoc version"
+        return 0
+    fi       
+
+    echo "The proto code does not match the protoc version, need regenerate code"
+    generate_proto_code $proto_file
+    if [ $? -eq 1 ];then
+        echo "ERROR: regenerate proto code failed"
+        return 1
+    fi
+
+    echo "Regenerate proto code success"
+    return 0   
+}

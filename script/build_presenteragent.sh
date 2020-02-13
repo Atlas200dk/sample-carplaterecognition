@@ -53,9 +53,27 @@ function build_presenteragent()
     fi
 }
 
+function check_presenteragent_proto_version()
+{
+    pb_h_file=${script_path}/presenteragent/proto/presenter_message.pb.h
+    proto_file=${script_path}/presenteragent/proto/presenter_message.proto
+    check_proto_version $pb_h_file $proto_file
+    if [ $? -eq 1 ];then
+        echo "ERROR: regenerate presenteragent proto code failed"
+        return 1
+    fi
+
+    return 0
+}
+
 main()
 {
     download_code
+    if [[ $? -ne 0 ]];then
+        return 1
+    fi
+
+    check_presenteragent_proto_version
     if [[ $? -ne 0 ]];then
         return 1
     fi

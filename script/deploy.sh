@@ -53,12 +53,35 @@ function build_common()
     return 0
 }
 
+function check_carplate_recognition_proto_version()
+{
+    pb_h_file=$app_path/video_analysis_post/video_analysis_message.pb.h
+    proto_file=$app_path/video_analysis_post/video_analysis_message.proto
+    proto_dir=$app_path/video_analysis_post
+
+    check_proto_version $pb_h_file $proto_file
+    if [ $? -eq 1 ];then
+        echo "ERROR: check facial recognition proto code failed"
+        return 1
+    fi
+
+    echo "Regenerate proto code success"
+    return 0
+}
 
 function main()
 {
     echo "Modify param information in graph.config..."
     check_param_configure
     if [ $? -ne 0 ];then
+        echo "ERROR: modify param information in graph.config failed"
+        return 1
+    fi
+
+    echo "Check carplate recognition proto"
+    check_carplate_recognition_proto_version
+    if [ $? -ne 0 ];then
+        echo "ERROR: check  carplate recognition proto failed"
         return 1
     fi
 
