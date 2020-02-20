@@ -4,36 +4,37 @@ script_path="$( cd "$(dirname ${BASH_SOURCE})" ; pwd -P )"
 remote_host=$1
 presenteragent_version="1.2.0"
 HOST_LIB_PATH="${HOME}/ascend_ddk/host/lib"
+AGENT_PATH="${HOME}/ascend_ddk"
 
 . ${script_path}/func_util.sh
 
 function download_code()
 {
-    if [ -d ${script_path}/presenteragent ];then
+    if [ -d ${AGENT_PATH}/presenteragent ];then
         echo "Presenteragent code is found..."
         return 0
     else
         echo "Download presenteragent code..."
         presenteragent_download_url="https://gitee.com/Atlas200DK/sdk-presenter/repository/archive/1.2.0?format=zip"
-        wget -O ${script_path}/presenteragent-${presenteragent_version}.ing ${presenteragent_download_url} --no-check-certificate 1>/dev/null 2>&1
+        wget -O ${AGENT_PATH}/presenteragent-${presenteragent_version}.ing ${presenteragent_download_url} --no-check-certificate 1>/dev/null 2>&1
     fi
     if [[ $? -ne 0 ]];then
         echo "ERROR: download failed, please check ${presenteragent_download_url} connection."
         return 1
     fi
 
-    mv ${script_path}/presenteragent-${presenteragent_version}.ing ${script_path}/presenteragent-${presenteragent_version}.zip
-    unzip ${script_path}/presenteragent-${presenteragent_version}.zip -d ${script_path} 1>/dev/null
+    mv ${AGENT_PATH}/presenteragent-${presenteragent_version}.ing ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip
+    unzip ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip -d ${AGENT_PATH} 1>/dev/null
     if [[ $? -ne 0 ]];then
         echo "ERROR: uncompress presenteragent tar.gz file failed, please check ${presenteragent_download_url} connection."
         return 1
     fi
 	
-	mkdir -p ${script_path}/presenteragent;rm -rf ${script_path}/presenteragent/*
-    cp -rf  ${script_path}/sdk-presenter/presenteragent/* ${script_path}/presenteragent/
+	mkdir -p ${AGENT_PATH}/presenteragent;rm -rf ${AGENT_PATH}/presenteragent/*
+    cp -rf  ${AGENT_PATH}/sdk-presenter/presenteragent/* ${AGENT_PATH}/presenteragent/
 
-    rm -rf ${script_path}/presenteragent-${presenteragent_version}.zip
-    rm -rf ${script_path}/sdk-presenter
+    rm -rf ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip
+    rm -rf ${AGENT_PATH}/sdk-presenter
     return 0
 
 }
@@ -41,12 +42,16 @@ function download_code()
 function build_presenteragent()
 {
     echo "Build presenteragent..."
-    make clean -C ${script_path}/presenteragent 1>/dev/null 2>&1
+    if [ -e "${AGENT_PATH}/presenteragent/out/libpresenteragent.so" ];then
+        echo "Presenteragent so is found.."
+        return 0
+    fi
+    make clean -C ${AGENT_PATH}/presenteragent 1>/dev/null 2>&1
     if [[ $? -ne 0 ]];then
         echo "ERROR: compile presenteragent failed, please check the env."
         return 1
     fi
-    make install -C ${script_path}/presenteragent 1>/dev/null 2>&1
+    make install -C ${AGENT_PATH}/presenteragent 1>/dev/null 2>&1
     if [[ $? -ne 0 ]];then
         echo "ERROR: compile presenteragent failed, please check the env."
         return 1
@@ -55,8 +60,8 @@ function build_presenteragent()
 
 function check_presenteragent_proto_version()
 {
-    pb_h_file=${script_path}/presenteragent/proto/presenter_message.pb.h
-    proto_file=${script_path}/presenteragent/proto/presenter_message.proto
+    pb_h_file=${AGENT_PATH}/presenteragent/proto/presenter_message.pb.h
+    proto_file=${AGENT_PATH}/presenteragent/proto/presenter_message.proto
     check_proto_version $pb_h_file $proto_file
     if [ $? -eq 1 ];then
         echo "ERROR: regenerate presenteragent proto code failed"
@@ -98,3 +103,4 @@ main()
 }
 
 main
+
