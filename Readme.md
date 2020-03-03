@@ -96,7 +96,7 @@
 
 4.  <a name="li499911453439"></a>启动Presenter Server。
 
-    打开Mindstudio工具的Terminal，此时默认在[步骤1](#li953280133816)中的代码存放路径下，执行如下命令在后台启动carplate recognition应用的Presenter Server主程序。如[图 启动PresenterServer](#fig423515251067)所示。
+    打开Mindstudio工具的Terminal，此时默认在代码主目录下，执行如下命令在后台启动carplate recognition应用的Presenter Server主程序。如[图 启动PresenterServer](#fig423515251067)所示。
 
     **bash run\_present\_server.sh**
 
