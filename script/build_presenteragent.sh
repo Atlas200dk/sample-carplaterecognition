@@ -46,6 +46,14 @@ function build_presenteragent()
         echo "Presenteragent so is found.."
         return 0
     fi
+
+    protobuf_path=`find $DDK_HOME/../RC -maxdepth 3 -name "libprotobuf.so" 2> /dev/null`
+    if [[ ! ${protobuf_path} ]];then
+        echo "[ERROR]libprotobuf so can not found"
+    fi
+    protobuf_dir_path=`dirname $protobuf_path`
+    export NPU_HOST_LIB=${protobuf_dir_path}
+    
     make clean -C ${AGENT_PATH}/presenteragent 1>/dev/null 2>&1
     if [[ $? -ne 0 ]];then
         echo "ERROR: compile presenteragent failed, please check the env."
