@@ -1,3 +1,5 @@
+English|[中文](Readme.md)
+
 # License Plate Recognition<a name="EN-US_TOPIC_0228461932"></a>
 
 This application can run on the Atlas 200 DK to collect camera data in real time and predict vehicle license plate information in the video. The precision is low due to the model. To improve the precision, you can train a model to replace it.
