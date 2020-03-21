@@ -147,7 +147,7 @@
 
     ![](figures/7c9dd1a0a188f9dc2f5f25e4023f965.png)
 
-2.  使用启动Presenter Server服务时提示的URL登录 Presenter Server 网站，详细可参考[启动Presenter Server](zh-cn_topic_0218873008_fig73590912222)。
+2.  使用启动Presenter Server服务时提示的URL登录 Presenter Server 网站，详细可参考[启动Presenter Server](#zh-cn_topic_0218873008_fig12953163061713)。
 
     等待Presenter Agent传输数据给服务端，单击“Refresh“刷新，当有数据时相应的Channel 的Status变成绿色，如[图 Presenter Server界面](#zh-cn_topic_0218873008_fig113691556202312)所示。
 
