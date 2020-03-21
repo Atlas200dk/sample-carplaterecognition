@@ -94,7 +94,7 @@
     >![](public_sys-resources/icon-notice.gif) **须知：**   
     >首次编译工程时，**Build \> Build**为灰色不可点击状态。需要点击**Build \> Edit Build Configuration**，配置编译参数后再进行编译。  
 
-5.  启动Presenter Server。<a name="section6245151616417"></a>
+5.  启动Presenter Server。<a name="zh-cn_topic_0218873008_fig73590912222"></a>  
 
     打开Mindstudio工具的Terminal，在应用代码存放路径下，执行如下命令在后台启动carplate recognition应用的Presenter Server主程序。如[图 启动PresenterServer](#zh-cn_topic_0218873008_fig102142024389)所示。
 
@@ -147,7 +147,7 @@
 
     ![](figures/7c9dd1a0a188f9dc2f5f25e4023f965.png)
 
-2.  使用启动Presenter Server服务时提示的URL登录 Presenter Server 网站，详细可参考[启动Presenter Server](section6245151616417)。
+2.  使用启动Presenter Server服务时提示的URL登录 Presenter Server 网站，详细可参考[启动Presenter Server](zh-cn_topic_0218873008_fig73590912222)。
 
     等待Presenter Agent传输数据给服务端，单击“Refresh“刷新，当有数据时相应的Channel 的Status变成绿色，如[图 Presenter Server界面](#zh-cn_topic_0218873008_fig113691556202312)所示。
 
