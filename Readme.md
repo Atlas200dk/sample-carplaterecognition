@@ -1,57 +1,57 @@
-中文|[English](Readme_EN.md)
+English|[中文](Readme_cn.md)
 
-# 车牌识别<a name="ZH-CN_TOPIC_0228461932"></a>
+# License Plate Recognition<a name="EN-US_TOPIC_0228461932"></a>
 
-开发者可以将本application部署至Atlas 200DK上实现对摄像头数据的实时采集、并对视频中的车辆车牌信息进行预测的功能。受模型影响，精准度较低，如果需要提高精度，可以自己训练模型替换。
+This application can run on the Atlas 200 DK to collect camera data in real time and predict vehicle license plate information in the video. The precision is low due to the model. To improve the precision, you can train a model to replace it.
 
-当前分支中的应用适配**1.32.0.0及以上**版本的[DDK&RunTime](https://ascend.huawei.com/resources)。
+The applications in the current version branch adapt to  [DDK&RunTime](https://ascend.huawei.com/resources) **1.32.0.0 and later**.
 
-## 前提条件<a name="section137245294533"></a>
+## Prerequisites<a name="section137245294533"></a>
 
-部署此Sample前，需要准备好以下环境：
+Before deploying this sample, ensure that:
 
--   已完成Mind Studio的安装。
--   已完成Atlas 200 DK开发者板与Mind Studio的连接，交叉编译器的安装，SD卡的制作及基本信息的配置等。
+-   Mind Studio  has been installed.
+-   The Atlas 200 DK developer board has been connected to  Mind Studio, the cross compiler has been installed, the SD card has been prepared, and basic information has been configured.
 
-## 部署<a name="section412811285117"></a>
+## Deployment<a name="section412811285117"></a>
 
-可以选择如下快速部署或者常规方法部署，二选一即可：
+You can use either of the following methods:
 
-1.  快速部署，请参考：  [https://gitee.com/Atlas200DK/faster-deploy](https://gitee.com/Atlas200DK/faster-deploy)  。
+1.  Quick deployment: visit  [https://github.com/Atlas200dk/faster-deploy](https://github.com/Atlas200dk/faster-deploy).
 
-    >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   该快速部署脚本可以快速部署多个案例，请选择carplaterecognition案例部署即可。  
-    >-   该快速部署脚本自动完成了代码下载、模型转换、环境变量配置等流程，如果需要了解详细的部署过程请选择常规部署方式。转: **[2. 常规部署](#li3208251440)**  
+    >![](public_sys-resources/icon-note.gif) **NOTE:**   
+    >-   The quick deployment script can be used to deploy multiple samples rapidly. Select  **carplaterecognition**.  
+    >-   The quick deployment script automatically completes code download, model conversion, and environment variable configuration. To learn about the detailed deployment process, select the common deployment mode. Go to  **[2. Common deployment](#li3208251440)**.  
 
-2.  <a name="li3208251440"></a>常规部署，请参考：  [https://gitee.com/Atlas200DK/sample-README/tree/master/sample-carplaterecognition](https://gitee.com/Atlas200DK/sample-README/tree/master/sample-carplaterecognition)  。
+2.  <a name="li3208251440"></a>Common deployment: visit  [https://github.com/Atlas200dk/sample-README/tree/master/sample-carplaterecognition](https://github.com/Atlas200dk/sample-README/tree/master/sample-carplaterecognition).
 
-    >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   该部署方式，需要手动完成代码下载、模型转换、环境变量配置等过程。完成后，会对其中的过程更加了解。  
+    >![](public_sys-resources/icon-note.gif) **NOTE:**   
+    >-   In this deployment mode, you need to manually download code, convert models, and configure environment variables. After that, you will have a better understanding of the process.  
 
 
-## 编译<a name="section1759513564117"></a>
+## Build<a name="section1759513564117"></a>
 
-1.  打开对应的工程。
+1.  Open the project.
 
-    以Mind Studio安装用户在命令行中进入安装包解压后的“MindStudio-ubuntu/bin”目录，如：$HOME/MindStudio-ubuntu/bin。执行如下命令启动Mind Studio
+    Go to the directory that stores the decompressed installation package as the Mind Studio installation user in CLI mode, for example,  **$HOME/MindStudio-ubuntu/bin**. Run the following command to start Mind Studio:
 
     **./MindStudio.sh**
 
-    启动成功后，打开**sample-carplaterecognition**工程，如[图 打开sample-carplaterecognition工程](#zh-cn_topic_0218873008_fig721144422212)所示。
+    Open the  **sample-carplaterecognition**  project, as shown in  [Figure 1](#en-us_topic_0218873008_fig721144422212).
 
-    **图 1**  打开sample-carplaterecognition工程<a name="zh-cn_topic_0218873008_fig721144422212"></a>  
+    **Figure  1**  Opening the sample-carplaterecognition project<a name="en-us_topic_0218873008_fig721144422212"></a>  
     
 
-    ![](figures/zh-cn_image_0218876987.png)
+    ![](figures/en-us_image_0218876987.png)
 
-2.  在src/param\_configure.conf文件中配置相关工程信息。
+2.  Configure project information in the  **src/param\_configure.conf**  file.
 
-    **图 2**  配置文件路径<a name="zh-cn_topic_0218873008_fig1557065718252"></a>  
+    **Figure  2**  Configuration file path<a name="en-us_topic_0218873008_fig1557065718252"></a>  
     
 
-    ![](figures/zh-cn_image_0218877806.png)
+    ![](figures/en-us_image_0218877806.png)
 
-    该配置文件内容如下：
+    Content of the configuration file:
 
     ```
     remote_host=
@@ -59,11 +59,11 @@
     presenter_view_app_name=
     ```
 
-    -   remote\_host：配置为Atlas 200 DK开发者板的IP地址。
-    -   data\_source : 配置摄像头所属Channel，取值为Channel-1或者Channel-2，查询摄像头所属Channel的方法请参考[Atlas 200 DK用户手册](https://ascend.huawei.com/doc/Atlas200DK/)中的“如何查看摄像头所属Channel”。
-    -   presenter\_view\_app\_name : 用户自定义的在PresenterServer界面展示的View Name，此View Name需要在Presenter Server展示界面唯一，只能为大小写字母、数字、“/”的组合，位数至少1位。
+    -   **remote\_host**: IP address of the Atlas 200 DK developer board
+    -   **data\_source**: camera channel. The value can be  **Channel-1**  or  **Channel-2**. For details, see "Viewing the Channel to Which a Camera Belongs" in  [Atlas 200 DK User Guide](https://ascend.huawei.com/documentation).
+    -   **presenter\_view\_app\_name**: value of  **View Name**  on the  **Presenter Server**  page, which must be unique. The value consists of at least one character and supports only uppercase letters, lowercase letters, digits, and underscores \(\_\).
 
-    配置示例：
+    Configuration example:
 
     ```
     remote_host=192.168.1.2
@@ -71,120 +71,120 @@
     presenter_view_app_name=video
     ```
 
-    >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   三个参数必须全部填写，否则无法通过编译。  
-    >-   注意参数填写时不需要使用“”符号。  
+    >![](public_sys-resources/icon-note.gif) **NOTE:**   
+    >-   All the three parameters must be set. Otherwise, the build fails.  
+    >-   Do not use double quotation marks \(""\) during parameter settings.  
 
-3.  执行deploy脚本， 进行配置参数调整及第三方库下载编译 打开Mind Studio工具的Terminal，此时默认在代码主目录下，执行如下命令在后台指执行deploy脚本，进行环境部署。如[图 执行deploy脚本](#zh-cn_topic_0218873008_fig19393122943511)所示。
+3.  Run the  **deploy.sh**  script to adjust configuration parameters and download and compile the third-party library. Open the  **Terminal**  window of Mind Studio. By default, the home directory of the code is used. Run the  **deploy.sh**  script in the background to deploy the environment, as shown in  [Figure 3](#en-us_topic_0218873008_fig19393122943511).
 
-    **图 3**  执行deploy脚本<a name="zh-cn_topic_0218873008_fig19393122943511"></a>  
-    ![](figures/执行deploy脚本-24.png "执行deploy脚本-24")
+    **Figure  3**  Running the deploy.sh script<a name="en-us_topic_0218873008_fig19393122943511"></a>  
+    ![](figures/running-the-deploy-sh-script-22.png "running-the-deploy-sh-script-22")
 
-    >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   首次deploy时，没有部署第三方库时会自动下载并编译，耗时可能比较久，请耐心等待。后续再重新编译时，不会重复下载编译，部署如上图所示。  
-    >-   deploy时，需要选择与开发板通信的主机侧ip，一般为虚拟网卡配置的ip。如果此ip和开发板ip属于同网段，则会自动选择并部署。如果非同网段，则需要手动输入与开发板通信的主机侧ip才能完成deploy。  
+    >![](public_sys-resources/icon-note.gif) **NOTE:**   
+    >-   During the first deployment, if no third-party library is used, the system automatically downloads and builds the third-party library, which may take a long time. The third-party library can be directly used for the subsequent build.  
+    >-   During deployment, select the IP address of the host that communicates with the developer board. Generally, the IP address is the IP address configured for the virtual NIC. If the IP address is in the same network segment as the IP address of the developer board, it is automatically selected for deployment. If they are not in the same network segment, you need to manually type the IP address of the host that communicates with the Atlas DK to complete the deployment.  
 
-4.  开始编译，打开Mind Studio工具，在工具栏中点击**Build \> Build \> Build-Configuration**。如[图4](#zh-cn_topic_0218873008_fig13819202814301)所示，会在目录下生成build和run文件夹。
+4.  Start building. Open Mind Studio and choose  **Build \> Build \> Build-Configuration**  from the main menu. The  **build**  and  **run**  folders are generated in the directory, as shown in  [Figure 4](#en-us_topic_0218873008_fig13819202814301).
 
-    **图 4**  编译操作及生成文件<a name="zh-cn_topic_0218873008_fig13819202814301"></a>  
+    **Figure  4**  Build and file generation<a name="en-us_topic_0218873008_fig13819202814301"></a>  
     
 
     ![](figures/977f70e5b743c8ab6267c7d9b93194c.png)
 
-    >![](public_sys-resources/icon-notice.gif) **须知：**   
-    >首次编译工程时，**Build \> Build**为灰色不可点击状态。需要点击**Build \> Edit Build Configuration**，配置编译参数后再进行编译。  
+    >![](public_sys-resources/icon-notice.gif) **NOTICE:**   
+    >When you build a project for the first time,  **Build \> Build**  is unavailable. You need to choose  **Build \> Edit Build Configuration**  to set parameters before the build.  
 
-5.  启动Presenter Server。<a name="zh-cn_topic_0218873008_fig12953163062222"></a> 
+5.  Start Presenter Server.<a name="en-us_topic_0218873008_fig12953163062222"></a>  
 
-    打开Mindstudio工具的Terminal，在应用代码存放路径下，执行如下命令在后台启动carplate recognition应用的Presenter Server主程序。如[图 启动PresenterServer](#zh-cn_topic_0218873008_fig102142024389)所示。
+    Open the  **Terminal**  window of Mind Studio. Under the code storage path, run the following command to start the Presenter Server program of the license plate recognition application on the server, as shown in  [Figure 5](#en-us_topic_0218873008_fig102142024389).
 
     **bash run\_present\_server.sh**
 
-    **图 5**  启动PresenterServer<a name="zh-cn_topic_0218873008_fig102142024389"></a>  
+    **Figure  5**  Starting Presenter Server<a name="en-us_topic_0218873008_fig102142024389"></a>  
     
 
     ![](figures/3510ef898c672612c4ac5fa9397c708.png)
 
-    -   当提示“Please choose one to show the presenter in browser\(default: 127.0.0.1\):“时，请输入在浏览器中访问Presenter Server服务所使用的IP地址（一般为访问Mind Studio的IP地址）。
+    -   When the message  **Please choose one to show the presenter in browser\(default: 127.0.0.1\):**  is displayed, type the IP address \(usually IP address for accessing Mind Studio\) used for accessing the Presenter Server service in the browser.
 
-        如[图6](#zh-cn_topic_0218873008_fig73590910118)所示，请在“Current environment valid ip list“中选择通过浏览器访问Presenter Server服务使用的IP地址，并输入存储视频解析数据的路径。
+        Select the IP address used by the browser to access the Presenter Server service in  **Current environment valid ip list**  and type the path for storing video analysis data, as shown in  [Figure 6](#en-us_topic_0218873008_fig73590910118).
 
-        **图 6**  工程部署示意图<a name="zh-cn_topic_0218873008_fig73590910118"></a>  
+        **Figure  6**  Project deployment<a name="en-us_topic_0218873008_fig73590910118"></a>  
         
 
         ![](figures/827447f108867314d18ff4e4b22d421.png)
 
-    如[图7](#zh-cn_topic_0218873008_fig19953175965417)所示，表示presenter\_server的服务启动成功。
+    [Figure 7](#en-us_topic_0218873008_fig19953175965417)  shows that the Presenter Server service has been started successfully.
 
-    **图 7**  Presenter Server进程启动<a name="zh-cn_topic_0218873008_fig19953175965417"></a>  
+    **Figure  7**  Starting the Presenter Server process<a name="en-us_topic_0218873008_fig19953175965417"></a>  
     
 
     ![](figures/de3f85cb841628787ec4718cee44e8e.png)
 
-    使用上图提示的URL登录Presenter Server，仅支持Chrome浏览器。IP地址为[图 工程部署示意图](#zh-cn_topic_0218873008_fig73590910118)操作时输入的IP地址，端口号默为7007，如下图所示，表示Presenter Server启动成功。
+    Use the URL shown in the preceding figure to log in to Presenter Server \(only Google Chrome is supported\). The IP address is that typed in  [Project deployment](#en-us_topic_0218873008_fig73590910118)  and the default port number is  **7007**. The following figure indicates that Presenter Server has been started successfully.
 
-    **图 8**  主页显示<a name="zh-cn_topic_0218873008_fig64391558352"></a>  
-    ![](figures/主页显示-25.png "主页显示-25")
+    **Figure  8**  Home page<a name="en-us_topic_0218873008_fig64391558352"></a>  
+    ![](figures/home-page-23.png "home-page-23")
 
-    Presenter Server、Mind Studio与Atlas 200 DK之间通信使用的IP地址示例如下图所示：
+    The following figure shows the IP address used by Presenter Server and  Mind Studio  to communicate with the Atlas 200 DK.
 
-    **图 9**  IP地址示例<a name="zh-cn_topic_0218873008_fig195318596543"></a>  
-    ![](figures/IP地址示例-26.png "IP地址示例-26")
+    **Figure  9**  IP address example<a name="en-us_topic_0218873008_fig195318596543"></a>  
+    ![](figures/ip-address-example-24.png "ip-address-example-24")
 
-    -   Atlas 200 DK开发者板使用的IP地址为192.168.1.2（USB方式连接）。
-    -   Presenter Server与Atlas 200 DK通信的IP地址为UI Host服务器中与Atlas 200 DK在同一网段的IP地址，例如：192.168.1.223。
-    -   通过浏览器访问Presenter Server的IP地址本示例为：10.10.0.1，由于Presenter Server与Mind Studio部署在同一服务器，此IP地址也为通过浏览器访问Mind Studio的IP。
+    -   The IP address of the Atlas 200 DK developer board is  **192.168.1.2**  \(connected in USB mode\).
+    -   The IP address used by Presenter Server to communicate with the Atlas 200 DK is in the same network segment as the IP address of the Atlas 200 DK on the UI Host server. For example:  **192.168.1.223**.
+    -   The following describes how to access the IP address \(such as  **10.10.0.1**\) of Presenter Server using a browser. Because Presenter Server and  Mind Studio  are deployed on the same server, you can access  Mind Studio  through the browser using the same IP address. 
 
 
-## 运行<a name="section6245151616426"></a>
+## Run<a name="section6245151616426"></a>
 
-1.  运行车牌识别应用程序
+1.  Run the license plate recognition application.
 
-    在Mind Studio工具的工具栏中找到Run按钮，点击  **Run \> Run 'sample-carplaterecognition'**  ，如[图10](#zh-cn_topic_0218873008_fig12953163061713)所示，可执行程序已经在开发板执行。
+    On the toolbar of Mind Studio, click  **Run**  and choose  **Run \> Run 'sample-carplaterecognition'**. As shown in  [Figure 10](#en-us_topic_0218873008_fig12953163061713), the executable application is running on the developer board.
 
-    **图 10**  程序运行示意图<a name="zh-cn_topic_0218873008_fig12953163061713"></a>  
+    **Figure  10**  Application running<a name="en-us_topic_0218873008_fig12953163061713"></a>  
     
 
     ![](figures/7c9dd1a0a188f9dc2f5f25e4023f965.png)
 
-2.  使用启动Presenter Server服务时提示的URL登录 Presenter Server 网站，详细可参考[启动Presenter Server](#zh-cn_topic_0218873008_fig12953163062222)。 
+2.  Use the URL displayed upon the start of the Presenter Server service to log in to Presenter Server. For details, see  [Start Presenter Server](#en-us_topic_0218873008_fig12953163062222).
 
-    等待Presenter Agent传输数据给服务端，单击“Refresh“刷新，当有数据时相应的Channel 的Status变成绿色，如[图 Presenter Server界面](#zh-cn_topic_0218873008_fig113691556202312)所示。
+    Wait for Presenter Agent to transmit data to the server. Click  **Refresh**. When there is data, the icon in the  **Status**  column for the corresponding channel changes to green, as shown in  [Figure 11](#en-us_topic_0218873008_fig113691556202312).
 
-    **图 11**  Presenter Server界面<a name="zh-cn_topic_0218873008_fig113691556202312"></a>  
-    ![](figures/Presenter-Server界面-27.png "Presenter-Server界面-27")
+    **Figure  11**  Presenter Server page<a name="en-us_topic_0218873008_fig113691556202312"></a>  
+    ![](figures/presenter-server-page-25.png "presenter-server-page-25")
 
-    >![](public_sys-resources/icon-note.gif) **说明：**   
-    >-   Carplate recognition的Presenter Server最多支持10路Channel同时显示，每个  _presenter\_view\_app\_name_  对应一路Channel。  
-    >-   由于硬件的限制，每一路支持的最大帧率是20fps，受限于网络带宽的影响，帧率会自动适配为较低的帧率进行展示。  
+    >![](public_sys-resources/icon-note.gif) **NOTE:**   
+    >-   For the license plate recognition application, Presenter Server supports a maximum of 10 channels at the same time \(each  _presenter\_view\_app\_name_  parameter corresponds to a channel\).  
+    >-   Due to hardware limitations, each channel supports a maximum frame rate of 20 fps. A lower frame rate is automatically used when the network bandwidth is low.  
 
-3.  单击右侧对应的View Name链接，比如上图的“video”，查看结果，对于检测到的车牌，会给出车牌号信息。
+3.  Click the link \(such as  **video**  in the preceding figure\) in the  **View Name**  column to view the result. The information of the detected license plate is displayed.
 
-## 后续处理<a name="section1092612277429"></a>
+## Follow-up Operations<a name="section1092612277429"></a>
 
--   **停止车牌识别应用**
+-   Stopping the license plate recognition application
 
-    车牌识别应用执行后会处于持续运行状态，若要停止车牌识别应用程序，可执行如下操作。
+    The license plate recognition application is running continually after being executed. To stop it, perform the following operation:
 
-    单击[图 停止车牌识别应用](#zh-cn_topic_0218873008_fig14326454172518)所示的停止按钮停止车牌识别应用程序。
+    Click the stop button shown in  [Figure 12](#en-us_topic_0218873008_fig14326454172518).
 
-    **图 12**  停止车牌识别应用<a name="zh-cn_topic_0218873008_fig14326454172518"></a>  
+    **Figure  12**  Stopping the license plate recognition application<a name="en-us_topic_0218873008_fig14326454172518"></a>  
     
 
     ![](figures/9381c4c3003c7f2cf5479b0464b177f.png)
 
-    如[图 车牌识别应用已停止](#zh-cn_topic_0218873008_fig2182182518112)所示应用程序已停止运行
+    [Figure 13](#en-us_topic_0218873008_fig2182182518112)  shows that the license plate recognition application has been stopped.
 
-    **图 13**  车牌识别应用已停止<a name="zh-cn_topic_0218873008_fig2182182518112"></a>  
+    **Figure  13**  Stopped license plate recognition application<a name="en-us_topic_0218873008_fig2182182518112"></a>  
     
 
     ![](figures/186ec128ed22c2f0edfabf73aae63dc.png)
 
--   **停止Presenter Server服务**
+-   Stopping the Presenter Server service
 
-    Presenter Server服务启动后会一直处于运行状态，若想停止车牌识别应用对应的Presenter Server服务，可执行如下操作。
+    The Presenter Server service is always in the running state after being started. To stop the Presenter Server service of the license plate recognition application, perform the following operations:
 
-    以Mind Studio安装用户在Mind Studio所在服务器中的命令行中执行如下命令查看车牌识别应用对应的Presenter Server服务的进程。
+    On the server with  Mind Studio  installed, run the following command as the  Mind Studio  installation user to check the process of the Presenter Server service corresponding to the license plate recognition application:
 
     **ps -ef | grep presenter | grep carplate\_recognition**
 
@@ -193,9 +193,9 @@
     ascend    7701  1615  0 14:21 pts/8    00:00:00 python3 presenterserver/presenter_server.py --app carplate_recognition
     ```
 
-    如上所示  _7701_  即为车牌识别应用对应的Presenter Server服务的进程ID。
+    In the preceding information,  _7701_  indicates the process ID of the Presenter Server service corresponding to the license plate recognition application.
 
-    若想停止此服务，执行如下命令：
+    To stop the service, run the following command:
 
     **kill -9** _7701_
 
