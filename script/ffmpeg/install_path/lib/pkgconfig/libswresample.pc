@@ -1,0 +1,14 @@
+prefix=/home/ascend/AscendProjects/sample-videoanalysiscar/script/ffmpeg/install_path
+exec_prefix=${prefix}
+libdir=/home/ascend/AscendProjects/sample-videoanalysiscar/script/ffmpeg/install_path/lib
+includedir=/home/ascend/AscendProjects/sample-videoanalysiscar/script/ffmpeg/install_path/include
+
+Name: libswresample
+Description: FFmpeg audio resampling library
+Version: 3.3.100
+Requires: 
+Requires.private: libavutil >= 56.22.100
+Conflicts:
+Libs: -L${libdir}  -lswresample 
+Libs.private: -lm
+Cflags: -I${includedir}
