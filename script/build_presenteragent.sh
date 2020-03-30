@@ -1,77 +1,40 @@
 #!/bin/bash
-#
-#   =======================================================================
-#
-# Copyright (C) 2018, Hisilicon Technologies Co., Ltd. All Rights Reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-#   1 Redistributions of source code must retain the above copyright notice,
-#     this list of conditions and the following disclaimer.
-#
-#   2 Redistributions in binary form must reproduce the above copyright notice,
-#     this list of conditions and the following disclaimer in the documentation
-#     and/or other materials provided with the distribution.
-#
-#   3 Neither the names of the copyright holders nor the names of the
-#   contributors may be used to endorse or promote products derived from this
-#   software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-#   =======================================================================
 
-# ************************Variable*********************************************
+script_path="$( cd "$(dirname ${BASH_SOURCE})" ; pwd -P )"
+remote_host=$1
+presenteragent_version="1.2.0"
+HOST_LIB_PATH="${HOME}/ascend_ddk/host/lib"
+AGENT_PATH="${HOME}/ascend_ddk"
 
-script_path="$( cd "$(dirname "$0")" ; pwd -P )"
-
-download_mode=$1
-presenteragent_version="1.1.2"
+. ${script_path}/func_util.sh
 
 function download_code()
 {
-    if [ -d ${script_path}/presenteragent ];then
+    if [ -d ${AGENT_PATH}/presenteragent ];then
         echo "Presenteragent code is found..."
         return 0
     else
-        if [[ ${download_mode} == "local" ]];then
-            echo "WARNING: no presenteragent code found."
-            read -p "Do you want to download from internet?(y/n, default:y)" confirm
-            if [[ ${confirm}"X" != "X" && ${confirm} != "y" && ${confirm} != "Y" ]];then
-                echo "ERROR: no presenteragent code found and no download choice, please put presenteragent code in ${script_path}/presenteragent path manually."
-                return 1
-            fi
-        fi
+        echo "Download presenteragent code..."
+        presenteragent_download_url="https://github.com/Atlas200dk/sdk-presenter/archive/1.2.0.zip"
+        wget -O ${AGENT_PATH}/presenteragent-${presenteragent_version}.ing ${presenteragent_download_url} --no-check-certificate 1>/dev/null 2>&1
     fi
-    echo "Download presenteragent code..."
-    presenter_download_url="https://github.com/Atlas200dk/sdk-presenter/archive/1.1.2.zip"
-    wget -O ${script_path}/presenter-${presenteragent_version}.ing ${presenter_download_url} --no-check-certificate
     if [[ $? -ne 0 ]];then
-        echo "ERROR: download failed, please check ${presenter_download_url} connection."
+        echo "ERROR: download failed, please check ${presenteragent_download_url} connection."
         return 1
     fi
 
-    mv ${script_path}/presenter-${presenteragent_version}.ing ${script_path}/presenter-${presenteragent_version}.zip
-    unzip ${script_path}/presenter-${presenteragent_version}.zip -d ${script_path} 1>/dev/null
+    mv ${AGENT_PATH}/presenteragent-${presenteragent_version}.ing ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip
+    unzip ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip -d ${AGENT_PATH} 1>/dev/null
     if [[ $? -ne 0 ]];then
-        echo "ERROR: uncompress presenteragent tar.gz file failed, please check ${presenter_download_url} connection."
+        echo "ERROR: uncompress presenteragent tar.gz file failed, please check ${presenteragent_download_url} connection."
         return 1
     fi
-    mkdir ${script_path}/presenteragent
-    cp -rf  ${script_path}/sdk-presenter/presenteragent/* ${script_path}/presenteragent
-    rm -rf ${script_path}/presenter-${presenteragent_version}.zip
-    rm -rf ${script_path}/sdk-presenter
-    rm -rf ${script_path}/presenter-${presenteragent_version}.ing
+	
+	mkdir -p ${AGENT_PATH}/presenteragent;rm -rf ${AGENT_PATH}/presenteragent/*
+    cp -rf ${AGENT_PATH}/sdk-presenter-${presenteragent_version}/presenteragent/* ${AGENT_PATH}/presenteragent/
+
+    rm -rf ${AGENT_PATH}/presenteragent-${presenteragent_version}.zip
+    rm -rf ${AGENT_PATH}/sdk-presenter-${presenteragent_version}
     return 0
 
 }
@@ -79,29 +42,51 @@ function download_code()
 function build_presenteragent()
 {
     echo "Build presenteragent..."
-    atlas_target=`grep "TARGET" ${DDK_HOME}/ddk_info | awk -F '"' '{print $4}'`
-    if [[ $? -ne 0 ]];then
-        echo "ERROR: can not get TARGET from ${DDK_HOME}/ddk_info, please check your env"
-        return 1
+    if [ -e "${AGENT_PATH}/presenteragent/out/libpresenteragent.so" ];then
+        echo "Presenteragent so is found.."
+        return 0
     fi
 
-    atlas_target=`echo ${atlas_target} | sed 's/ //g' `
-     make clean mode=${atlas_target} -C ${script_path}/presenteragent 1>/dev/null
+    protobuf_path=`find $DDK_HOME/../RC -maxdepth 3 -name "libprotobuf.so" 2> /dev/null`
+    if [[ ! ${protobuf_path} ]];then
+        echo "[ERROR]libprotobuf so can not found"
+    fi
+    protobuf_dir_path=`dirname $protobuf_path`
+    export NPU_HOST_LIB=${protobuf_dir_path}
+    
+    make clean -C ${AGENT_PATH}/presenteragent 1>/dev/null 2>&1
     if [[ $? -ne 0 ]];then
         echo "ERROR: compile presenteragent failed, please check the env."
         return 1
     fi
-    make install mode=${atlas_target} -C ${script_path}/presenteragent 1>/dev/null
+    make install -C ${AGENT_PATH}/presenteragent 1>/dev/null 2>&1
     if [[ $? -ne 0 ]];then
         echo "ERROR: compile presenteragent failed, please check the env."
         return 1
     fi
 }
 
+function check_presenteragent_proto_version()
+{
+    pb_h_file=${AGENT_PATH}/presenteragent/proto/presenter_message.pb.h
+    proto_file=${AGENT_PATH}/presenteragent/proto/presenter_message.proto
+    check_proto_version $pb_h_file $proto_file
+    if [ $? -eq 1 ];then
+        echo "ERROR: regenerate presenteragent proto code failed"
+        return 1
+    fi
+
+    return 0
+}
+
 main()
 {
-    #download code
     download_code
+    if [[ $? -ne 0 ]];then
+        return 1
+    fi
+
+    check_presenteragent_proto_version
     if [[ $? -ne 0 ]];then
         return 1
     fi
@@ -113,7 +98,17 @@ main()
     fi
 
     echo "Finish to Build presenteragent."
+
+    echo "Start to deploy presenteragent"
+    upload_file "${HOST_LIB_PATH}/libpresenteragent.so" "~/HIAI_PROJECTS/ascend_lib"
+    if [ $? -ne 0 ];then
+        return  1
+    fi
+    echo "Finish to deploy presenteragent"
+
+
     exit 0
 }
 
 main
+
